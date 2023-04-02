@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "echo \"Running build script...\""
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +21,8 @@
     "mongoose": "^7.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.21"
+    "nodemon": "^2.0.21",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1"
   }
 }
