@@ -21,12 +21,13 @@ mongoose.connection.on('error', function(err) {
 
 mongoose.connect('mongodb://127.0.0.1:27017/tienda', { useNewUrlParser: true });
 
-// Comprobar si la conexión está abierta
-if (mongoose.connection.readyState === 1) {
+// Verificar la conexión a la base de datos
+mongoose.connection.once('open', function() {
     console.log('La conexión a la base de datos está abierta');
-} else {
-    console.log('La conexión a la base de datos no está abierta');
-}
+}).on('error', function(err) {
+    console.error('Error en la conexión a la base de datos: ' + err);
+    process.exit(1); // Salir del proceso con código de error 1 en caso de error de conexión
+});
 
 app.listen(port, function(){
     console.log('Servidor corriendo en el puerto'+ port);
