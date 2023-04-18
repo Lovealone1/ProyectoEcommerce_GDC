@@ -20,13 +20,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: ProyectoEcommerce_GDC/back/package-lock.json
+        cache-dependency-path: back/package-lock.json
         # Increase memory allocation to prevent memory-related issues
         # This example sets the memory allocation to 4GB
         # You can adjust the value as needed
         node-options: '--max-old-space-size=4096'
     - name: Change directory to back
-      run: cd ProyectoEcommerce_GDC/back
+      run: cd back
     - run: npm install
     - run: npm start
     - run:
