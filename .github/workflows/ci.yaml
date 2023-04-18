@@ -22,7 +22,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: subdir/package-lock.json
+        cache-dependency-path: back/package-lock.json
         # Increase memory allocation to prevent memory-related issues
         # This example sets the memory allocation to 4GB
         # You can adjust the value as needed
