@@ -33,8 +33,11 @@ jobs:
     - name: Verify database connection
       run: cd back; node ./scripts/verify-db-connection.js
 
-    - name: Run npm start and capture stdout
-      run: cd back && npm start > stdout.log 2>&1 & sleep 10
+    - name: Build Angular app
+      run: cd admin; npm install
+
+    - name: Run ng serve and capture stdout
+      run: cd admin && npm run start > stdout.log 2>&1 & sleep 10
 
     - name: Upload stdout log
       uses: actions/upload-artifact@v2
