@@ -34,7 +34,7 @@ jobs:
       run: cd back; node ./scripts/verify-db-connection.js
 
     - name: Run npm start and capture stdout
-      run: cd back; npm start > stdout.log
+      run: cd back && npm start > stdout.log 2>&1 & sleep 10
 
     - name: Upload stdout log
       uses: actions/upload-artifact@v2
