@@ -15,17 +15,26 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         node-options: '--max-old-space-size=4096'
+
     - name: List Directories
       run: ls -r
+
     - name: Change directory to back
       run: cd back; ls
+
     - run: cd back; npm install
-    - run: cd back; npm start
-    - run:
-        npm cache clean --force
-        yarn cache clean --force
+
+    - name: Run npm start and capture stdout
+      run: cd back; npm start > stdout.log
+
+    - name: Upload stdout log
+      uses: actions/upload-artifact@v2
+      with:
+        name: stdout-log
+        path: back/stdout.log
