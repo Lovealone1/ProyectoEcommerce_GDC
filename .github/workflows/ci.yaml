@@ -26,7 +26,6 @@ jobs:
         # This example sets the memory allocation to 4GB
         # You can adjust the value as needed
         node-options: '--max-old-space-size=4096'
-    - run: npm cache clean 
     - run: npm ci
     - run: npm run build
     - run: npm test
