@@ -30,6 +30,9 @@ jobs:
 
     - run: cd back; npm install
 
+    - name: Verify database connection
+      run: cd back; node ./scripts/verify-db-connection.js
+
     - name: Run npm start and capture stdout
       run: cd back; npm start > stdout.log
 
