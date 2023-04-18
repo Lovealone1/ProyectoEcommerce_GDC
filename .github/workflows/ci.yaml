@@ -15,8 +15,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Change directory to back
-      run: cd back
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
@@ -27,6 +25,8 @@ jobs:
         # This example sets the memory allocation to 4GB
         # You can adjust the value as needed
         node-options: '--max-old-space-size=4096'
+    - name: Change directory to back
+      run: cd back
     - run: npm install
     - run: npm start
     - run:
