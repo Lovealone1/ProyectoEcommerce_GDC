@@ -23,9 +23,9 @@ jobs:
     - name: List Directories
       run: ls -r
     - name: Change directory to back
-      run: cd back
-    - run: npm install
-    - run: npm start
+      run: cd back; ls
+    - run: cd back; npm install
+    - run: cd back; npm start
     - run:
         npm cache clean --force
         yarn cache clean --force
