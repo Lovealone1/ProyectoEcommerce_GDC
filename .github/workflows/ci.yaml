@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Change directory to back
-      run: cd path/to/back
+      run: cd ProyectoEcommerce_GDC/back/
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
