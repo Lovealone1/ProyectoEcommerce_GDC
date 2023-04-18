@@ -25,6 +25,8 @@ jobs:
         # This example sets the memory allocation to 4GB
         # You can adjust the value as needed
         node-options: '--max-old-space-size=4096'
+    - name: Set package.json path
+      run: echo "::set-env name=PACKAGE_JSON_PATH::$(pwd)/ProyectoEcommerce_GDC/back/package-lock.json"
     - name: Change directory to back
       run: cd back
     - run: npm install
@@ -32,3 +34,4 @@ jobs:
     - run:
         npm cache clean --force
         yarn cache clean --force  
+
