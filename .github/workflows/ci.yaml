@@ -2,9 +2,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
+    branches: [main]
 
 jobs:
   build:
@@ -14,33 +14,30 @@ jobs:
         node-version: [14.x]
 
     steps:
-    - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        node-options: '--max-old-space-size=4096'
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          node-options: '--max-old-space-size=4096'
 
-    - name: List Directories
-      run: ls -r
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Change directory to back
-      run: cd back; ls
+      - name: Build the app
+        run: npm run build
 
-    - run: cd back; npm install
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Verify database connection
-      run: cd back; node ./scripts/verify-db-connection.js
-
-    - name: Build Angular app
-      run: cd admin; npm install
-
-    - name: Run ng serve and capture stdout
-      run: cd admin && npm run start > stdout.log 2>&1 & sleep 10
-
-    - name: Upload stdout log
-      uses: actions/upload-artifact@v2
-      with:
-        name: stdout-log
-        path: back/stdout.log
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: jorgemesa19/imgproyecto:latest
