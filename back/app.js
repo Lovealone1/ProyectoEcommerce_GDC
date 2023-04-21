@@ -8,26 +8,19 @@ var port = process.env.PORT || 4201;
 
 var cliente_route = require('./routes/cliente');
 var admin_route = require('./routes/admin');
+var producto_route = require('./routes/producto');
 
-// Manejar eventos de conexión exitosa
-mongoose.connection.on('connected', function() {
-    console.log('Conexión exitosa a la base de datos');
-});
+const cors = require('cors');
 
-// Manejar eventos de error de conexión
-mongoose.connection.on('error', function(err) {
-    console.error('Error de conexión a la base de datos: ' + err);
-});
+app.use(cors({
 
-mongoose.connect('mongodb://127.0.0.1:27017/tienda', { useNewUrlParser: true });
+    origin: '*'
 
-// Comprobar si la conexión está abierta
-if (mongoose.connection.readyState === 1) {
-    console.log('La conexión a la base de datos está abierta');
-} else {
-    console.log('La conexión a la base de datos no está abierta');
-}
+}));
 
+
+
+mongoose.connect('mongodb://127.0.0.1:27017/tienda')
 app.listen(port, function(){
     console.log('Servidor corriendo en el puerto'+ port);
 });
@@ -45,5 +38,10 @@ app.use((req,res,next)=>{
 
 app.use('/api', cliente_route);
 app.use('/api', admin_route);
+app.use('/api', producto_route);
+
+
+
+
 
 module.exports = app;
